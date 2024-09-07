@@ -10,12 +10,12 @@ const AddPost = () => {
             name=""
             id=""
             placeholder="What's on your mind?"
-            className="flex-1 bg-gray-100 px-3 ronunded-lg"
+            className="flex-1 bg-gray-100 px-3 ronunded-lg text-sm outline-none pt-1"
           ></textarea>
           <div className="w-6 h-6 rounded-full bg-gray-200 mt-auto">emoji</div>
         </div>
       </div>
-      <div className="flex gap-4 items-center mt-4 text-gray-4 justify-end pr-5 text-gray-500">
+      <div className="flex gap-4 items-center mt-4 text-gray-4  text-sm pr-5 text-gray-500">
         <div>photo</div>
         <div>photo</div>
         <div>photo</div>
