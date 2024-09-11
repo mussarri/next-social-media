@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const AddPost = () => {
@@ -12,14 +13,24 @@ const AddPost = () => {
             placeholder="What's on your mind?"
             className="flex-1 bg-gray-100 px-3 ronunded-lg text-sm outline-none pt-1"
           ></textarea>
-          <div className="w-6 h-6 rounded-full bg-gray-200 mt-auto">emoji</div>
+          <button className="w-6 h-6 rounded-full flex items-center justify-center mt-auto">
+            <Image src={"/img/send.png"} width={14} height={14} />
+          </button>
         </div>
       </div>
-      <div className="flex gap-4 items-center mt-4 text-gray-4  text-sm pr-5 text-gray-500">
-        <div>photo</div>
-        <div>photo</div>
-        <div>photo</div>
-        <div>photo</div>
+      <div className="flex gap-4 items-center mt-4 text-gray-4 text-xs pr-5 text-gray-500">
+        <div className="flex gap-2">
+          <Image src={"/img/posts.png"} width={14} height={14} /> Photo
+        </div>
+        <div className="flex gap-2">
+          <Image src={"/img/video.png"} width={14} height={14} /> Video
+        </div>
+        <div className="flex gap-2">
+          <Image src={"/img/list.png"} width={14} height={14} /> Poll
+        </div>
+        <div className="flex gap-2">
+          <Image src={"/img/calendar.png"} width={14} height={14} /> Event
+        </div>
       </div>
     </div>
   );

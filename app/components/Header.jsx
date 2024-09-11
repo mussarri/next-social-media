@@ -14,9 +14,12 @@ const Header = () => {
   return (
     <div className="bg-white shadow">
       <div className="h-24 flex items-center justify-between max-width">
-        <div className="logo font-bold text-xl text-blue-600 md:hidden lg:block w-[20%]">
+        <Link
+          href={"/"}
+          className="logo font-bold text-xl text-blue-600 md:hidden lg:block w-[20%]"
+        >
           Asegram
-        </div>
+        </Link>
         <div className="hidden md:flex gap-6 text-gray-600 items-center w-[50%] justify-between">
           <div className="flex gap-6">
             <Link href={"/"} className="flex items-center gap-2 justify-start">

@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Sponsor from "./Sponsor";
+import { auth } from "@clerk/nextjs/server";
+import prisma from "../../lib/client";
 
 const links = [
   { icon: "picture", name: "My Posts", link: "" },
@@ -16,7 +18,21 @@ const links = [
   { icon: "options", name: "Settings", link: "" },
 ];
 
-const LeftMenu = ({ profile = false }) => {
+const LeftMenu = async ({ profile = false }) => {
+  const { userId } = auth();
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+    include: {
+      _count: {
+        select: {
+          followers: true,
+        },
+      },
+    },
+  });
+
   return (
     <div>
       {profile || (
@@ -27,6 +43,7 @@ const LeftMenu = ({ profile = false }) => {
           >
             <Image
               src={
+                user.avatar ||
                 "https://cdn.pixabay.com/photo/2017/03/28/12/21/autumn-2182008_1280.jpg"
               }
               fill
@@ -34,11 +51,21 @@ const LeftMenu = ({ profile = false }) => {
             />
           </div>
           <div className="flex flex-col items-center -mt-5 z-50">
-            <div className="h-10 w-10 rounded-full bg-red-200 z-50"></div>
-            <div className="font-semibold text-gray-600">John Doe</div>
-            <div className="text-gray-500 text-xs">500 folllowers</div>
+            <div className="h-10 w-10 rounded-full bg-red-200 z-50 relative overflow-hidden">
+              <Image
+                src={user.avatar || "/img/noAvatar.png"}
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+            <div className="font-semibold text-gray-600 capitalize">
+              {user.name + " " + user.surname}
+            </div>
+            <div className="text-gray-500 text-xs">
+              {user._count.followers} folllowers
+            </div>
             <Link
-              href="/profile/123"
+              href={"/profile/" + user.username}
               className="bg-blue-500 p-1 px-3 text-sm mt-2 rounded text-white"
             >
               My Profile

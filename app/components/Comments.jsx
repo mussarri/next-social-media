@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import React from "react";
 
-const Comments = () => {
+const Comments = ({ comments }) => {
   return (
     <div className="mt-4">
       <div className="flex gap-4">

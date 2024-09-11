@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import LeftMenu from "../../components/LeftMenu";
 import RightMenu from "../../components/RightMenu";
 import Image from "next/image";
@@ -23,7 +23,6 @@ const page = async ({ params }) => {
     },
   });
   if (!user) return notFound();
-  console.log(user);
 
   return (
     <div className="max-width py-5 flex gap-4">
@@ -75,7 +74,7 @@ const page = async ({ params }) => {
         <Feed />
       </div>
       <div className="hidden lg:block w-[30%]">
-        <ProfileRightMenu />
+        <ProfileRightMenu username={params.username} />
       </div>
     </div>
   );
