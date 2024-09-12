@@ -4,14 +4,27 @@ import {
   faShare,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
 import Comments from "./Comments";
 import Link from "next/link";
+import PostLikeButton from "./PostLikeButton";
 
-const Post = ({ post, user }) => {
+const Post = async ({ post, user }) => {
+  let isLiked;
+  const reqIsLiked = await prisma.like.findFirst({
+    where: {
+      userId: user.id,
+      postId: post.id,
+    },
+  });
+  if (reqIsLiked) {
+    isLiked = true;
+  } else {
+    isLiked = false;
+  }
+
   return (
     <div className="p-4 mb-4">
       <div className="flex justify-between items-center">
@@ -46,15 +59,7 @@ const Post = ({ post, user }) => {
       <div className="text-sm text-gray-700 mt-3">{post.desc}</div>
       <div className="flex justify-between items-center mt-4">
         <div className="flex gap-10 ">
-          <div className="flex gap-2 text-sm text-gray-500 items-center">
-            <form action="">
-              <div className="text-blue-500">
-                <FontAwesomeIcon icon={faThumbsUp} width={16} height={16} />
-              </div>
-            </form>
-            <div>|</div>
-            <div>{post._count.likes} Likes</div>
-          </div>
+          <PostLikeButton post={post} isLiked={isLiked} />
           <div className="flex gap-2 text-sm text-gray-500 items-center">
             <div className="text-blue-500">
               <FontAwesomeIcon icon={faCommentDots} width={16} height={16} />
@@ -67,7 +72,11 @@ const Post = ({ post, user }) => {
           <FontAwesomeIcon icon={faShare} width={16} height={16} />
         </div>
       </div>
-      <Comments comments={post.comments} user={user} />
+      <Comments
+        comments={post.comments}
+        postId={post.id}
+        count={post._count.comments}
+      />
     </div>
   );
 };

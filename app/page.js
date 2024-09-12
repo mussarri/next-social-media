@@ -24,7 +24,15 @@ export default async function Home() {
     },
     include: {
       user: true,
-      comments: true,
+      comments: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          user: true,
+        },
+        take: 2,
+      },
       _count: {
         select: {
           likes: true,

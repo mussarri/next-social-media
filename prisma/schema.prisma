@@ -36,7 +36,8 @@ model User {
   blockedBy              Block[]             @relation("BlocksReceived")
   stories                Story[]
   birthdayCelebrates     BirthdayCelebrate[]
-  Birthday               Birthday[]
+  birthday               Birthday[]
+  comments               Comment[]
 }
 
 model Post {
@@ -58,6 +59,8 @@ model Comment {
   updatedAt DateTime @updatedAt
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
   likes     Like[]
 }
 
