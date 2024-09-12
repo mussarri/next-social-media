@@ -42,10 +42,7 @@ const LeftMenu = async ({ profile = false }) => {
             style={{ aspectRatio: 2.5 }}
           >
             <Image
-              src={
-                user.avatar ||
-                "https://cdn.pixabay.com/photo/2017/03/28/12/21/autumn-2182008_1280.jpg"
-              }
+              src={user.cover || "/img/noCover.png"}
               fill
               style={{ objectFit: "cover" }}
             />

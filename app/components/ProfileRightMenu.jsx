@@ -19,6 +19,9 @@ const ProfileRightMenu = async ({ username }) => {
       <Suspense fallback={"loading..."}>
         <UserMediaCard user={user} />
       </Suspense>
+      <Suspense fallback={"loading..."}>
+        <FriendRequests user={user} />
+      </Suspense>
     </div>
   );
 };

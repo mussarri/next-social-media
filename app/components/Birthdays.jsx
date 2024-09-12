@@ -12,15 +12,15 @@ async function getTodayBirthdays(currentUserId) {
   const date = new Date();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-
+  const userId = "%" + currentUserId + "%";
   const birthdays =
-    await prisma.$queryRaw`SELECT * FROM "Birthday" u LEFT JOIN "User" p ON p.id = u."userId" WHERE EXTRACT(MONTH FROM "date") = ${month} AND EXTRACT(DAY FROM "date") = ${day} AND u."userId" != ${currentUserId}`;
+    await prisma.$queryRaw`SELECT * FROM "Birthday" u LEFT JOIN "User" p ON p.id = u."userId" WHERE EXTRACT(MONTH FROM "date") = ${month} AND EXTRACT(DAY FROM "date") = ${day} AND u."userId" NOT LIKE ${userId} `;
 
   return birthdays;
 }
 
 const Birthdays = async () => {
-  const { currentUserId } = auth();
+  const { userId: currentUserId } = auth();
   const birthdays = await getTodayBirthdays(currentUserId);
 
   return (

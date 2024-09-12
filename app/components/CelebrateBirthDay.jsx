@@ -17,9 +17,14 @@ const CelebrateBirthDay = ({ user }) => {
             {user.name + " " + user.surname}
           </div>
         </div>
-        <div className="text-sm p-1 bg-blue-500 text-white rounded px-2">
-          Celebrate
-        </div>
+        <form action="">
+          <button
+            type="submit"
+            className="text-sm p-1 bg-blue-500 text-white rounded px-2"
+          >
+            Celebrate
+          </button>
+        </form>
       </div>
     </div>
   );

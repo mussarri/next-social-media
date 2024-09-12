@@ -19,7 +19,11 @@ const FriendRequests = async ({ userId }) => {
         </div>
         <div className="text-xs text-blue-500">See all</div>
       </div>
-      <FriendRequestsList requests={requests} />
+      {requests.length > 0 ? (
+        <FriendRequestsList requests={requests} />
+      ) : (
+        <span className="text-xs text-gray-400">No new request</span>
+      )}
     </div>
   );
 };

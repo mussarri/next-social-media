@@ -6,8 +6,10 @@ import Feed from "../../components/Feed";
 import ProfileRightMenu from "../../components/ProfileRightMenu";
 import prisma from "../../../lib/client";
 import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 const page = async ({ params }) => {
+  const { userId: currentUserId } = auth();
   const user = await prisma.user.findFirst({
     where: {
       username: params.username,
@@ -22,7 +24,33 @@ const page = async ({ params }) => {
       },
     },
   });
+
   if (!user) return notFound();
+
+  const isBlocked = await prisma.block.findFirst({
+    where: {
+      blockerId: user.id,
+      blockedId: currentUserId,
+    },
+  });
+
+  if (isBlocked) return notFound();
+
+  const posts = await prisma.post.findMany({
+    where: {
+      userId: user.id,
+    },
+    include: {
+      user: true,
+      comments: true,
+      _count: {
+        select: {
+          likes: true,
+          comments: true,
+        },
+      },
+    },
+  });
 
   return (
     <div className="max-width py-5 flex gap-4">
@@ -35,10 +63,7 @@ const page = async ({ params }) => {
           style={{ aspectRatio: 2.5 }}
         >
           <Image
-            src={
-              user.cover ||
-              "https://cdn.pixabay.com/photo/2017/03/28/12/21/autumn-2182008_1280.jpg"
-            }
+            src={user.cover || "/img/noCover.png"}
             alt=""
             fill
             style={{ objectFit: "cover" }}
@@ -71,7 +96,7 @@ const page = async ({ params }) => {
             </div>
           </div>
         </div>
-        <Feed />
+        <Feed posts={posts} />
       </div>
       <div className="hidden lg:block w-[30%]">
         <ProfileRightMenu username={params.username} />

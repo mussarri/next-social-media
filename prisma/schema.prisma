@@ -28,16 +28,15 @@ model User {
   createdAt              DateTime            @default(now())
   posts                  Post[]
   likes                  Like[]
-  followers              Follower[]          @relation("UserFollowers")
-  followings             Follower[]          @relation("UserFollowings")
+  followers              Follower[]          @relation("UserFollowings")
+  followings             Follower[]          @relation("UserFollowers")
   followRequestSents     FollowRequest[]     @relation("FollowRequestsSent")
   followRequestsReceived FollowRequest[]     @relation("FollowRequestsReceived")
   blocks                 Block[]             @relation("BlocksSent")
   blockedBy              Block[]             @relation("BlocksReceived")
   stories                Story[]
   birthdayCelebrates     BirthdayCelebrate[]
-
-  Birthday Birthday[]
+  Birthday               Birthday[]
 }
 
 model Post {
@@ -80,6 +79,8 @@ model Follower {
   followerId  String
   following   User     @relation("UserFollowings", fields: [followingId], references: [id], onDelete: Cascade)
   followingId String
+
+  @@unique([followerId, followingId])
 }
 
 model FollowRequest {

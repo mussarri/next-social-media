@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FollowBlockButtons from "./FollowBlockButtons";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "../../lib/client";
+import UpdateUser from "./UpdateUser";
 
 const UserInfoCard = async ({ username }) => {
   const { userId: currentUserId } = auth();
@@ -78,7 +79,11 @@ const UserInfoCard = async ({ username }) => {
         <div className="font-semibold text-sm text-gray-500">
           User Information
         </div>
-        <div className="text-xs text-blue-500">See all</div>
+        {currentUserId !== user.id ? (
+          <div className="text-xs text-blue-500">See all</div>
+        ) : (
+          <UpdateUser user={user} />
+        )}
       </div>
       <div className="flex gap-2 items-center mt-4">
         <div className="font-semibold text-xl text-gray-600 capitalize">
@@ -125,6 +130,7 @@ const UserInfoCard = async ({ username }) => {
             isBlocked={isBlocked}
             isFollowRequestSent={isFollowRequestSent}
             isFollowing={isFollowing}
+            userId={user.id}
           />
         )}
       </div>
