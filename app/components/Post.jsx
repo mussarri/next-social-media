@@ -19,6 +19,25 @@ const Post = async ({ post, user }) => {
       postId: post.id,
     },
   });
+
+  const comments = await prisma.comment.findMany({
+    where: {
+      postId: post.id,
+    },
+    include: {
+      user: true,
+      _count: {
+        select: {
+          likes: true,
+        },
+      },
+    },
+    take: 2,
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   if (reqIsLiked) {
     isLiked = true;
   } else {
@@ -73,7 +92,7 @@ const Post = async ({ post, user }) => {
         </div>
       </div>
       <Comments
-        comments={post.comments}
+        comments={comments}
         postId={post.id}
         count={post._count.comments}
       />

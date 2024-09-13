@@ -41,7 +41,7 @@ const MakeComment = ({ postId, setCommentList }) => {
           name="text"
         />
         <button type="submit" className="text-sm">
-          Send
+          <Image src={"/img/send.png"} width={14} height={14} />
         </button>
       </div>
     </form>

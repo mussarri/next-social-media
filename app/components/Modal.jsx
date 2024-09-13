@@ -10,7 +10,7 @@ const Modal = ({ children }) => {
   });
 
   return (
-    <div className="w-screen h-screen bg-black/90 absolute top-0 left-0 z-50 flex items-center justify-center">
+    <div className="w-screen h-screen bg-black/90 fixed top-0 left-0 z-50 flex items-center justify-center">
       {children}
     </div>
   );
