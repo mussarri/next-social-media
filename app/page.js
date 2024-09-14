@@ -6,7 +6,6 @@ import RightMenu from "./components/RightMenu";
 import LeftMenu from "./components/LeftMenu";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "../lib/client";
-import { notFound } from "next/navigation";
 
 export default async function Home() {
   const { userId: currentUserId } = auth();
@@ -19,8 +18,11 @@ export default async function Home() {
     },
   });
   if (!user) return null;
-  const followingIds = user?.followings?.map((item) => item.followingId) || [];
-  const ids = [user.id, ...followingIds];
+  const followingIds =
+    user?.followings.length > 0
+      ? user?.followings?.map((item) => item.followingId)
+      : [];
+  const ids = [user.id].concat(followingIds);
   const posts = await prisma.post.findMany({
     where: {
       userId: {
