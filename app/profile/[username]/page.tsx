@@ -42,6 +42,7 @@ const page = async ({ params }) => {
     },
     include: {
       user: true,
+      likes: true,
       comments: true,
       _count: {
         select: {
@@ -49,6 +50,9 @@ const page = async ({ params }) => {
           comments: true,
         },
       },
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 

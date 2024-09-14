@@ -38,6 +38,8 @@ model User {
   birthdayCelebrates     BirthdayCelebrate[]
   birthday               Birthday[]
   comments               Comment[]
+
+  replies Reply[]
 }
 
 model Post {
@@ -62,6 +64,8 @@ model Comment {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   likes     Like[]
+
+  replies Reply[]
 }
 
 model Like {
@@ -133,4 +137,15 @@ model BirthdayCelebrate {
   birthDayId   Int
   celebrater   User     @relation(fields: [celebraterId], references: [id], onDelete: Cascade)
   celebraterId String
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  desc      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
 }

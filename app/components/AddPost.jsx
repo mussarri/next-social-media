@@ -1,7 +1,10 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
+import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import React, { useState } from "react";
+import { addPost } from "../../lib/action";
+import AddPostButton from "./AddPostButton";
 
 const AddPost = () => {
   const { user, isLoaded } = useUser();
@@ -9,10 +12,9 @@ const AddPost = () => {
   const [img, setImg] = useState();
 
   if (!isLoaded) {
-    return "Loading...";
+    return <span className="text-sm text-gray-400">Loading...</span>;
   }
 
-  const createPost = () => {};
   return (
     <div className="p-4 bg-white rounded-lg shadow overflow-scroll scrollbar-hide mt-4">
       <div className="flex gap-4">
@@ -23,27 +25,27 @@ const AddPost = () => {
             style={{ objectFit: "contain" }}
           />
         </div>
-        <form action={createPost} className="flex-1">
+        <form
+          action={(formData) => {
+            addPost(formData, img?.secure_url || "");
+          }}
+          className="flex-1"
+        >
           <div className="flex gap-4">
             <textarea
-              name=""
+              name="desc"
               id=""
               placeholder="What's on your mind?"
               className="flex-1 bg-gray-100 px-3 ronunded-lg text-sm outline-none pt-1"
             ></textarea>
-            <button
-              type="submit"
-              className="w-6 h-6 rounded-full flex items-center justify-center mt-auto"
-            >
-              <Image src={"/img/send.png"} width={14} height={14} />
-            </button>
+            <AddPostButton />
           </div>
         </form>
       </div>
       <div className="flex gap-4 items-center mt-4 text-gray-4 text-xs pr-5 text-gray-500">
         <div className="flex gap-2">
           <CldUploadWidget
-            uploadPreset="social"
+            uploadPreset="w8tuuc6a"
             onSuccess={(result, { widget }) => {
               setImg(result.info);
               widget.close();
@@ -55,7 +57,7 @@ const AddPost = () => {
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => open()}
                 >
-                  <Image src="/posts.png" alt="" width={20} height={20} />
+                  <Image src="/img/posts.png" alt="" width={20} height={20} />
                   Photo
                 </div>
               );

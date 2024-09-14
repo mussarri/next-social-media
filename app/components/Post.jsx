@@ -10,15 +10,10 @@ import React from "react";
 import Comments from "./Comments";
 import Link from "next/link";
 import PostLikeButton from "./PostLikeButton";
+import PostDelete from "./PostDelete";
 
-const Post = async ({ post, user }) => {
+const Post = async ({ post, userId }) => {
   let isLiked;
-  const reqIsLiked = await prisma.like.findFirst({
-    where: {
-      userId: user.id,
-      postId: post.id,
-    },
-  });
 
   const comments = await prisma.comment.findMany({
     where: {
@@ -26,6 +21,8 @@ const Post = async ({ post, user }) => {
     },
     include: {
       user: true,
+      likes: true,
+      post: true,
       _count: {
         select: {
           likes: true,
@@ -38,7 +35,7 @@ const Post = async ({ post, user }) => {
     },
   });
 
-  if (reqIsLiked) {
+  if (post.likes.map((i) => i.userId).includes(userId)) {
     isLiked = true;
   } else {
     isLiked = false;
@@ -58,23 +55,16 @@ const Post = async ({ post, user }) => {
             {post.user.name + " " + post.user.surname}
           </div>
         </Link>
-        <div>
-          <FontAwesomeIcon icon={faEllipsis} width={16} height={16} />
+        <PostDelete postId={post.id} />
+      </div>
+      {post.img && (
+        <div
+          className="w-full bg-black relative mt-4"
+          style={{ aspectRatio: 4 / 3 }}
+        >
+          <Image src={post.img} fill style={{ objectFit: "contain" }} />
         </div>
-      </div>
-      <div
-        className="w-full bg-black relative mt-4"
-        style={{ aspectRatio: 4 / 3 }}
-      >
-        <Image
-          src={
-            post.img ||
-            "https://cdn.pixabay.com/photo/2017/03/27/12/18/fields-2178329_1280.jpg"
-          }
-          fill
-          style={{ objectFit: "contain" }}
-        />
-      </div>
+      )}
       <div className="text-sm text-gray-700 mt-3">{post.desc}</div>
       <div className="flex justify-between items-center mt-4">
         <div className="flex gap-10 ">

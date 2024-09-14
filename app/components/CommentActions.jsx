@@ -10,6 +10,9 @@ const CommentActions = ({ commentId, likeCount, isLiked }) => {
     liked: isLiked,
     count: likeCount,
   });
+  const [isOpen, setIsOpen] = useState(false);
+  const [replyList, setRepliesList] = useState([]);
+
   const submit = async () => {
     optimisticFunc();
     try {
@@ -25,6 +28,7 @@ const CommentActions = ({ commentId, likeCount, isLiked }) => {
       console.log(error);
     }
   };
+
   const [optimisticState, optimisticFunc] = useOptimistic(state, (state) => {
     return {
       ...state,
@@ -32,21 +36,29 @@ const CommentActions = ({ commentId, likeCount, isLiked }) => {
       count: state.liked ? state.count - 1 : state.count + 1,
     };
   });
+
   return (
-    <div className="flex gap-4 items-center mt-1">
-      <form action={submit} className="cursor-pointer">
-        <button type="submit" className=" text-xs flex gap-1 items-center">
-          <FontAwesomeIcon
-            icon={optimisticState.liked ? solidFaThumsUp : faThumbsUp}
-            width={14}
-            height={14}
-          />
-          {optimisticState.count}
-        </button>
-      </form>
-      <span className="text-xs text-gray-400">|</span>
-      <span className="text-xs text-gray-400">Reply</span>
-    </div>
+    <>
+      <div className="flex gap-4 items-center mt-1">
+        <form action={submit} className="cursor-pointer">
+          <button type="submit" className=" text-xs flex gap-1 items-center">
+            <FontAwesomeIcon
+              icon={optimisticState.liked ? solidFaThumsUp : faThumbsUp}
+              width={14}
+              height={14}
+            />
+            {optimisticState.count}
+          </button>
+        </form>
+        {/* <span className="text-xs text-gray-400">|</span>
+        <span
+          className="text-xs text-gray-400 cursor-pointer"
+          onClick={() => setIsOpen(true)}
+        >
+          Reply
+        </span> */}
+      </div>
+    </>
   );
 };
 

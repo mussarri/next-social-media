@@ -16,14 +16,17 @@ export default async function Home() {
       followings: true,
     },
   });
+  const followingIds = user.followings.map((item) => item.followingId);
+  const ids = [user.id, ...followingIds];
   const posts = await prisma.post.findMany({
     where: {
       userId: {
-        in: user.followings.map((item) => item.followingId),
+        in: ids,
       },
     },
     include: {
       user: true,
+      likes: true,
       comments: {
         orderBy: {
           createdAt: "desc",
@@ -52,9 +55,9 @@ export default async function Home() {
       </div>
       <div className="w-full lg:w-[70%] xl:w-[50%]">
         <Stories />
-        {
-          //<AddPost />
-        }
+
+        <AddPost />
+
         <Feed posts={posts} />
       </div>
       <div className="hidden lg:block w-[30%]">

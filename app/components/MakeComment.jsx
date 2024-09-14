@@ -4,19 +4,30 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { createComment } from "../../lib/action";
 
-const MakeComment = ({ postId, setCommentList }) => {
+const MakeComment = ({ postId, setCommentList, user }) => {
   const [text, setText] = useState("");
-  const { user, isLoaded } = useUser();
+  const { isLoaded } = useUser();
 
   const submit = async (formData) => {
+    if (!text || !user) {
+      return;
+    }
     try {
       await createComment(formData, postId);
+
       setCommentList((prev) => [
-        ...prev,
         {
-          user: { name: user.firstName, lastname: user.lastName, avatar: "" },
+          user: {
+            name: user.name,
+            surname: user.surname,
+            avatar: user.avatar || "/img/noAvatar.png",
+          },
+          post: {
+            userId: user.id,
+          },
           desc: text,
         },
+        ...prev,
       ]);
       setText("");
     } catch (error) {}
@@ -30,7 +41,7 @@ const MakeComment = ({ postId, setCommentList }) => {
     <form action={submit}>
       <div className="flex gap-4">
         <div className="h-8 w-8 bg-gray-500 rounded-full relative overflow-hidden">
-          <Image fill src={user?.imageUrl || "/noAvatar.png"} />
+          <Image fill src={user?.avatar || "/img/noAvatar.png"} />
         </div>
         <input
           type="text"

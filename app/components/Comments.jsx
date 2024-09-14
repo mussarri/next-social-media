@@ -11,6 +11,7 @@ const Comments = async ({ comments, postId, count }) => {
     },
     include: {
       user: true,
+      post: true,
       likes: true,
       _count: {
         select: {
@@ -24,6 +25,13 @@ const Comments = async ({ comments, postId, count }) => {
   });
 
   const { userId } = auth();
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!user) return null;
 
   return (
     <>
@@ -31,9 +39,11 @@ const Comments = async ({ comments, postId, count }) => {
         comments={comments}
         postId={postId}
         count={count}
-        userId={userId}
+        user={user}
       />
-      {count > 2 && <AllComments comments={allComments} userId={userId} />}
+      {count > 2 && (
+        <AllComments comments={allComments} userId={userId} user={user} />
+      )}
     </>
   );
 };
