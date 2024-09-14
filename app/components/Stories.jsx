@@ -14,10 +14,11 @@ const Stories = async () => {
       followers: true,
     },
   });
-
+  const followingIds = user.followings?.map((item) => item.followingId);
+  const ids = [user.id, ...followingIds];
   const stories = await prisma.story.findMany({
     where: {
-      userId: { in: user.followers.map((item) => item.followerId) },
+      userId: { in: ids },
     },
     include: {
       user: true,

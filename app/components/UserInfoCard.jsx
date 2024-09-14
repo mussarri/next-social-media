@@ -28,8 +28,8 @@ const UserInfoCard = async ({ username }) => {
       },
     },
   });
-  const date = new Date(user.createdAt);
-  const formattedDate = date.toLocaleDateString("en-US", {
+  const date = new Date(user?.createdAt);
+  const formattedDate = date?.toLocaleDateString("en-US", {
     month: "long",
     year: "numeric",
     day: "numeric",

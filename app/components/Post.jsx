@@ -35,8 +35,8 @@ const Post = async ({ post, userId }) => {
       createdAt: "desc",
     },
   });
-
-  if (post.likes.map((i) => i.userId).includes(userId)) {
+  const likes = post?.likes || [];
+  if (likes.map((i) => i.userId).includes(userId)) {
     isLiked = true;
   } else {
     isLiked = false;
