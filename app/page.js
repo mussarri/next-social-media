@@ -17,7 +17,7 @@ export default async function Home() {
       followings: true,
     },
   });
-  const followingIds = user.followings?.map((item) => item.followingId);
+  const followingIds = user?.followings?.map((item) => item.followingId) || [];
   const ids = [user.id, ...followingIds];
   const posts = await prisma.post.findMany({
     where: {
