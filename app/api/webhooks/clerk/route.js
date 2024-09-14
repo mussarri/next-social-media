@@ -62,6 +62,8 @@ export async function POST(req) {
         data: {
           id: evt.data.id,
           username: JSON.parse(body).data.username,
+          name: JSON.parse(body).data.first_name,
+          surname: JSON.parse(body).data.last_name,
           avatar: JSON.parse(body).data.image_url || "/img/noAvatar.png",
           cover: "/img/noCover.png",
         },
