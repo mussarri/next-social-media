@@ -3,6 +3,7 @@ import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import React, { useState } from "react";
 import { createComment } from "../../lib/action";
+import MakeCommentButton from "./MakeCommentButton";
 
 const MakeComment = ({ postId, setCommentList, user }) => {
   const [text, setText] = useState("");
@@ -51,9 +52,7 @@ const MakeComment = ({ postId, setCommentList, user }) => {
           onChange={(e) => setText(e.target.value)}
           name="text"
         />
-        <button type="submit" className="text-sm">
-          <Image src={"/img/send.png"} width={14} height={14} />
-        </button>
+        <MakeCommentButton />
       </div>
     </form>
   );

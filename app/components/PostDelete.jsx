@@ -2,16 +2,30 @@
 import { useUser } from "@clerk/nextjs";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { deletePost } from "../../lib/action";
 
 const PostDelete = ({ postId }) => {
   const { isLoaded } = useUser();
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
 
   if (!isLoaded) {
     return <span className="text-sm text-gray-400">Loading...</span>;
   }
+
   return (
     <form
       action={() => {
@@ -26,6 +40,7 @@ const PostDelete = ({ postId }) => {
       {isOpen && (
         <button
           type="submit"
+          ref={ref}
           className=" text-sm text-red-600 absolute z-50 w-max bg-red-400 hover:text-white rounded p-2 right-0 top-5"
         >
           Delete Post
