@@ -1,5 +1,6 @@
 import React from "react";
 import FriendRequestsList from "./FriendsRequestsList";
+import prisma from "../../lib/client";
 
 const FriendRequests = async ({ userId }) => {
   const requests = await prisma.followRequest.findMany({

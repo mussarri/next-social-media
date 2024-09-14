@@ -11,6 +11,7 @@ import Comments from "./Comments";
 import Link from "next/link";
 import PostLikeButton from "./PostLikeButton";
 import PostDelete from "./PostDelete";
+import prisma from "../../lib/client";
 
 const Post = async ({ post, userId }) => {
   let isLiked;

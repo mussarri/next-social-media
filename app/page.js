@@ -5,6 +5,7 @@ import Feed from "./components/Feed";
 import RightMenu from "./components/RightMenu";
 import LeftMenu from "./components/LeftMenu";
 import { auth } from "@clerk/nextjs/server";
+import prisma from "../lib/client";
 
 export default async function Home() {
   const { userId: currentUserId } = auth();

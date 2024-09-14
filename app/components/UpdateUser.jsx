@@ -15,8 +15,6 @@ const UpdateUser = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cover, setCover] = useState("");
 
-  console.log(cover);
-
   const router = useRouter();
 
   const [state, formAction] = useFormState(updateProfile, {

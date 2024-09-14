@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import CelebrateBirthDay from "./CelebrateBirthDay";
 import { auth } from "@clerk/nextjs/server";
+import prisma from "../../lib/client";
 
 async function getTodayBirthdays(currentUserId) {
   const date = new Date();

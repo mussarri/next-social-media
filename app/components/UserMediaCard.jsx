@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import prisma from "../../lib/client";
 
 const UserMediaCard = async ({ user }) => {
   const postsWithImg = await prisma.post.findMany({
