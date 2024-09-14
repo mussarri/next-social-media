@@ -18,11 +18,14 @@ export default async function Home() {
     },
   });
   if (!user) return null;
+
   const followingIds =
     user?.followings.length > 0
       ? user?.followings?.map((item) => item.followingId)
       : [];
+
   const ids = [user.id].concat(followingIds);
+
   const posts = await prisma.post.findMany({
     where: {
       userId: {

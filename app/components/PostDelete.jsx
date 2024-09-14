@@ -4,6 +4,7 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
 import { deletePost } from "../../lib/action";
+import PostDeleteButton from "./PostDeleteButton";
 
 const PostDelete = ({ postId }) => {
   const { isLoaded } = useUser();
@@ -37,15 +38,7 @@ const PostDelete = ({ postId }) => {
       <div className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
         <FontAwesomeIcon icon={faEllipsis} width={16} height={16} />
       </div>
-      {isOpen && (
-        <button
-          type="submit"
-          ref={ref}
-          className=" text-sm text-red-600 absolute z-50 w-max bg-red-400 hover:text-white rounded p-2 right-0 top-5"
-        >
-          Delete Post
-        </button>
-      )}
+      {isOpen && <PostDeleteButton />}
     </form>
   );
 };

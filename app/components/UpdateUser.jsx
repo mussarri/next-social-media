@@ -106,17 +106,6 @@ const UpdateUser = ({ user }) => {
                     className="rounded p-2 border border-gray-200 text-sm"
                   />
                 </div>
-                <div className="flex flex-col gap-1 text-gray-600">
-                  <label className="text-sm" htmlFor="surname">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder={user.username}
-                    className="rounded p-2 border border-gray-200 text-sm"
-                  />
-                </div>
 
                 <div className="flex flex-col gap-1 text-gray-600">
                   <label className="text-sm" htmlFor="city">
