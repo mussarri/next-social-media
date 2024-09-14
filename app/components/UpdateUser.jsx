@@ -85,7 +85,7 @@ const UpdateUser = ({ user }) => {
                   }}
                 </CldUploadWidget>
                 <div className="flex flex-col gap-1 text-gray-600">
-                  <label className="text-sm" htmlFor="username">
+                  <label className="text-sm" htmlFor="name">
                     Name
                   </label>
                   <input
@@ -96,7 +96,7 @@ const UpdateUser = ({ user }) => {
                   />
                 </div>
                 <div className="flex flex-col gap-1 text-gray-600">
-                  <label className="text-sm" htmlFor="username">
+                  <label className="text-sm" htmlFor="surname">
                     Surname
                   </label>
                   <input
@@ -106,9 +106,20 @@ const UpdateUser = ({ user }) => {
                     className="rounded p-2 border border-gray-200 text-sm"
                   />
                 </div>
+                <div className="flex flex-col gap-1 text-gray-600">
+                  <label className="text-sm" htmlFor="surname">
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder={user.username}
+                    className="rounded p-2 border border-gray-200 text-sm"
+                  />
+                </div>
 
                 <div className="flex flex-col gap-1 text-gray-600">
-                  <label className="text-sm" htmlFor="username">
+                  <label className="text-sm" htmlFor="city">
                     City
                   </label>
                   <input
@@ -119,7 +130,7 @@ const UpdateUser = ({ user }) => {
                   />
                 </div>
                 <div className="flex flex-col gap-1 text-gray-600">
-                  <label className="text-sm" htmlFor="username">
+                  <label className="text-sm" htmlFor="school">
                     School
                   </label>
                   <input
@@ -130,7 +141,7 @@ const UpdateUser = ({ user }) => {
                   />
                 </div>
                 <div className="flex flex-col gap-1 text-gray-600">
-                  <label className="text-sm" htmlFor="username">
+                  <label className="text-sm" htmlFor="work">
                     Work
                   </label>
                   <input
@@ -141,7 +152,7 @@ const UpdateUser = ({ user }) => {
                   />
                 </div>
                 <div className="flex flex-col gap-1 text-gray-600">
-                  <label className="text-sm" htmlFor="username">
+                  <label className="text-sm" htmlFor="website">
                     Website
                   </label>
                   <input
@@ -152,7 +163,7 @@ const UpdateUser = ({ user }) => {
                   />
                 </div>
                 <div className="flex flex-col gap-1 text-gray-600">
-                  <label className="text-sm" htmlFor="username">
+                  <label className="text-sm" htmlFor="description">
                     Description
                   </label>
                   <textarea
