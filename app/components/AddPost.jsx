@@ -9,7 +9,7 @@ import AddPostButton from "./AddPostButton";
 const AddPost = () => {
   const { user, isLoaded } = useUser();
   const [desc, setDesc] = useState("");
-  const [img, setImg] = useState();
+  const [img, setImg] = useState(null);
 
   if (!isLoaded) {
     return <span className="text-sm text-gray-400">Loading...</span>;
@@ -32,7 +32,7 @@ const AddPost = () => {
                 window.location.reload();
                 return;
               }
-              addPost(formData, img?.secure_url || "");
+              addPost(formData, img?.secure_url);
             }
           }}
           className="flex-1"
