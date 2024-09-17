@@ -1,19 +1,11 @@
 "use client";
-import { faBell, faComment, faUsers } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import React, { useState } from "react";
-import {
-  ClerkLoaded,
-  ClerkLoading,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+
+import { useRouter } from "next/navigation";
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
   return (
     <div className="ml-5 mt-1">
       <div className="md:hidden">
@@ -39,11 +31,51 @@ const MobileMenu = () => {
         </div>
         {isOpen && (
           <div className="absolute left-0 top-24 w-full h-[calc(100vh-96px)] bg-white flex flex-col items-center justify-center gap-8 font-medium text-xl z-10">
-            <Link href="/">Home</Link>
-            <Link href="/">Friends</Link>
-            <Link href="/">Groups</Link>
-            <Link href="/">Stories</Link>
-            <Link href="/">Login</Link>
+            <a
+              className="cursor-pointer"
+              onClick={() => {
+                router.push("/");
+                setIsOpen(false);
+              }}
+            >
+              Home
+            </a>
+            <a
+              className="cursor-pointer"
+              onClick={() => {
+                router.push("/");
+                setIsOpen(false);
+              }}
+            >
+              Friends
+            </a>
+            <a
+              className="cursor-pointer"
+              onClick={() => {
+                router.push("/");
+                setIsOpen(false);
+              }}
+            >
+              Groups
+            </a>
+            <a
+              className="cursor-pointer"
+              onClick={() => {
+                router.push("/");
+                setIsOpen(false);
+              }}
+            >
+              Stories
+            </a>
+            <a
+              className="cursor-pointer"
+              onClick={() => {
+                router.push("/");
+                setIsOpen(false);
+              }}
+            >
+              Login
+            </a>
           </div>
         )}
       </div>
