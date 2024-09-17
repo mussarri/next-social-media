@@ -81,7 +81,9 @@ const page = async ({ params }) => {
             </div>
           </div>
         </div>
-        <Feed username={params.username} />
+        <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+          <Feed username={params.username} />
+        </Suspense>
       </div>
       <div className="hidden lg:block w-[30%]">
         <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
