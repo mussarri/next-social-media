@@ -9,7 +9,9 @@ import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 
 const page = async ({ params }) => {
+  
   const { userId: currentUserId } = auth();
+
   const user = await prisma.user.findFirst({
     where: {
       username: params.username,
@@ -35,26 +37,6 @@ const page = async ({ params }) => {
   });
 
   if (isBlocked) return notFound();
-
-  const posts = await prisma.post.findMany({
-    where: {
-      userId: user.id,
-    },
-    include: {
-      user: true,
-      likes: true,
-      comments: true,
-      _count: {
-        select: {
-          likes: true,
-          comments: true,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
 
   return (
     <div className="max-width py-5 flex gap-4">
@@ -100,7 +82,7 @@ const page = async ({ params }) => {
             </div>
           </div>
         </div>
-        <Feed posts={posts} />
+        <Feed username={params.username} />
       </div>
       <div className="hidden lg:block w-[30%]">
         <ProfileRightMenu username={params.username} />
