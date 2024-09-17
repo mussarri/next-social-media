@@ -9,19 +9,8 @@ import PostDeleteButton from "./PostDeleteButton";
 const PostDelete = ({ postId }) => {
   const { isLoaded } = useUser();
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef(null);
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
+
 
   if (!isLoaded) {
     return <span className="text-sm text-gray-400">Loading...</span>;

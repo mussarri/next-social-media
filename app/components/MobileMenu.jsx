@@ -1,7 +1,8 @@
+"use client";
 import { faBell, faComment, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -12,42 +13,39 @@ import {
 } from "@clerk/nextjs";
 
 const MobileMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div>
-      <div className="flex gap-6 items-center">
-        <ClerkLoading>...</ClerkLoading>
-        <ClerkLoaded>
-          <SignedIn>
-            <Link href={"/"}>
-              <FontAwesomeIcon
-                icon={faUsers}
-                width={20}
-                height={20}
-                className="text-gray-400"
-              />
-            </Link>
-            <Link href={"/"}>
-              <FontAwesomeIcon
-                icon={faComment}
-                width={20}
-                height={20}
-                className="text-gray-400"
-              />
-            </Link>
-            <Link href={"/"}>
-              <FontAwesomeIcon
-                icon={faBell}
-                width={20}
-                height={20}
-                className="text-gray-400"
-              />
-            </Link>
-            <UserButton />
-          </SignedIn>
-          <SignedOut>
-            <Link href={"/sign-in"}>Login / Signup </Link>
-          </SignedOut>
-        </ClerkLoaded>
+    <div className="ml-5 mt-1">
+      <div className="md:hidden">
+        <div
+          className="flex flex-col gap-[4.5px] cursor-pointer"
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          <div
+            className={`w-6 h-1 bg-blue-500 rounded-sm ${
+              isOpen ? "rotate-45" : ""
+            } origin-left ease-in-out duration-500`}
+          />
+          <div
+            className={`w-6 h-1 bg-blue-500 rounded-sm ${
+              isOpen ? "opacity-0" : ""
+            } ease-in-out duration-500`}
+          />
+          <div
+            className={`w-6 h-1 bg-blue-500 rounded-sm ${
+              isOpen ? "-rotate-45" : ""
+            } origin-left ease-in-out duration-500`}
+          />
+        </div>
+        {isOpen && (
+          <div className="absolute left-0 top-24 w-full h-[calc(100vh-96px)] bg-white flex flex-col items-center justify-center gap-8 font-medium text-xl z-10">
+            <Link href="/">Home</Link>
+            <Link href="/">Friends</Link>
+            <Link href="/">Groups</Link>
+            <Link href="/">Stories</Link>
+            <Link href="/">Login</Link>
+          </div>
+        )}
       </div>
     </div>
   );

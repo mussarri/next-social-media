@@ -20,7 +20,6 @@ const links = [
 
 const LeftMenu = async ({ profile = false }) => {
   const { userId } = auth();
-  console.log(userId);
 
   const user = await prisma.user.findFirst({
     where: {

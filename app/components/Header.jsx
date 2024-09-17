@@ -10,6 +10,15 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { faBell, faComment } from "@fortawesome/free-solid-svg-icons";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+
 const Header = () => {
   return (
     <div className="bg-white shadow">
@@ -67,6 +76,41 @@ const Header = () => {
           </div>
         </div>
         <div className="w-[30%] flex xl:gap-8 justify-end">
+          <div className="flex gap-6 items-center">
+            <ClerkLoading>...</ClerkLoading>
+            <ClerkLoaded>
+              <SignedIn>
+                <Link href={"/"}>
+                  <FontAwesomeIcon
+                    icon={faUsers}
+                    width={20}
+                    height={20}
+                    className="text-gray-400"
+                  />
+                </Link>
+                <Link href={"/"}>
+                  <FontAwesomeIcon
+                    icon={faComment}
+                    width={20}
+                    height={20}
+                    className="text-gray-400"
+                  />
+                </Link>
+                <Link href={"/"}>
+                  <FontAwesomeIcon
+                    icon={faBell}
+                    width={20}
+                    height={20}
+                    className="text-gray-400"
+                  />
+                </Link>
+                <UserButton />
+              </SignedIn>
+              <SignedOut>
+                <Link href={"/sign-in"}>Login / Signup </Link>
+              </SignedOut>
+            </ClerkLoaded>
+          </div>
           <MobileMenu />
         </div>
       </div>
