@@ -9,7 +9,6 @@ import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 
 const page = async ({ params }) => {
-  
   const { userId: currentUserId } = auth();
 
   const user = await prisma.user.findFirst({
@@ -85,7 +84,9 @@ const page = async ({ params }) => {
         <Feed username={params.username} />
       </div>
       <div className="hidden lg:block w-[30%]">
-        <ProfileRightMenu username={params.username} />
+        <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+          <ProfileRightMenu username={params.username} />
+        </Suspense>
       </div>
     </div>
   );
