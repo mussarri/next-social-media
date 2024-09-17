@@ -6,7 +6,7 @@ import {
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import Comments from "./Comments";
 import Link from "next/link";
 import PostLikeButton from "./PostLikeButton";

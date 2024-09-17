@@ -18,6 +18,25 @@ const Feed = async ({ username = "" }) => {
       where: {
         userId: user.id,
       },
+      include: {
+        user: true,
+        likes: true,
+        comments: {
+          orderBy: {
+            createdAt: "desc",
+          },
+          include: {
+            user: true,
+          },
+          take: 2,
+        },
+        _count: {
+          select: {
+            likes: true,
+            comments: true,
+          },
+        },
+      },
     });
   } else {
     const user = await prisma.user.findFirst({
