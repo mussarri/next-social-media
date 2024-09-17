@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
-const PostDeleteButton = () => {
+const PostDeleteButton = ({ setIsOpen }) => {
   const { pending } = useFormStatus();
+  const ref = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
   return (
     <button
       type="submit"

@@ -38,7 +38,7 @@ const PostDelete = ({ postId }) => {
       <div className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
         <FontAwesomeIcon icon={faEllipsis} width={16} height={16} />
       </div>
-      {isOpen && <PostDeleteButton />}
+      {isOpen && <PostDeleteButton setIsOpen={setIsOpen} />}
     </form>
   );
 };
