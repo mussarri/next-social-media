@@ -27,7 +27,13 @@ const AddPost = () => {
         </div>
         <form
           action={(formData) => {
-            addPost(formData, img?.secure_url || "");
+            {
+              if (!user) {
+                window.location.reload();
+                return;
+              }
+              addPost(formData, img?.secure_url || "");
+            }
           }}
           className="flex-1"
         >

@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import prisma from "../../lib/client";
 
 const Feed = async ({ username = "" }) => {
+  
   const { userId: currentUserId } = auth();
 
   let posts;
@@ -70,7 +71,7 @@ const Feed = async ({ username = "" }) => {
   return (
     <div className="flex flex-col bg-white mt-6 gap-4 rounded-lg">
       {posts.map((post) => (
-        <Post post={post} userId={userId} />
+        <Post post={post} userId={currentUserId} />
       ))}
     </div>
   );
