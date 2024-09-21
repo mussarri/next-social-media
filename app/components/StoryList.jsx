@@ -94,17 +94,18 @@ const StoryList = ({ stories, userId }) => {
           className="flex flex-col items-center gap-2 cursor-pointer"
           key={story?.id}
         >
-          <Image
-            src={story?.user.avatar || "/img/noAvatar.png"}
-            alt=""
-            width={48}
-            height={48}
-            className="w-12 h-12 rounded-full ring-2"
-            onClick={() => {
-              setIsOpen(true), setActive(index);
-            }}
-          />
-          <span className="font-medium text-sm">
+          <div className="h-12 min-w-12 w-12 ring-2 bg-black rounded-full overflow-hidden relative">
+            <Image
+              fill
+              style={{ objectFit: "contain" }}
+              src={story?.user.avatar || "/img/noAvatar.png"}
+              onClick={() => {
+                setIsOpen(true), setActive(index);
+              }}
+            />
+          </div>
+
+          <span className="font-medium text-sm text-gray-600">
             {story?.user.username || story?.user.name}
           </span>
         </div>

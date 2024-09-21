@@ -43,7 +43,7 @@ const CommentList = ({ comments, postId, user }) => {
               transition={{ duration: 0.6, type: "spring" }}
               className="flex gap-3 mt-5 items-start"
             >
-              <div className="h-8 min-w-8 w-8 bg-gray-500 rounded-full overflow-hidden relative">
+              <div className="h-8 min-w-8 w-8 bg-black rounded-full overflow-hidden relative">
                 <Image
                   fill
                   style={{ objectFit: "contain" }}

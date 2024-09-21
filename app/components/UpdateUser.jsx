@@ -14,6 +14,7 @@ import UpdateButton from "./UpdateButton";
 const UpdateUser = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cover, setCover] = useState("");
+  const [avatar, setAvatar] = useState("");
 
   const router = useRouter();
 
@@ -54,36 +55,69 @@ const UpdateUser = ({ user }) => {
               <form
                 className="flex flex-col gap-4 mt-3 grid grid-cols-2"
                 action={(formData) =>
-                  formAction({ formData, cover: cover?.secure_url || "" })
+                  formAction({
+                    formData,
+                    cover: cover?.secure_url || "",
+                    avatar: avatar?.secure_url || "",
+                  })
                 }
               >
-                <CldUploadWidget
-                  uploadPreset="w8tuuc6a"
-                  onSuccess={(result) => setCover(result.info)}
-                >
-                  {({ open }) => {
-                    return (
-                      <div
-                        className="flex flex-col gap-4 my-4 col-span-2"
-                        onClick={() => open()}
-                      >
-                        <label htmlFor="">Cover Picture</label>
-                        <div className="flex items-center gap-2 cursor-pointer">
-                          <Image
-                            src={user.cover || "/img/noCover.png"}
-                            alt=""
-                            width={48}
-                            height={32}
-                            className="w-12 h-8 rounded-md object-cover"
-                          />
-                          <span className="text-xs underline text-gray-600">
-                            Change
-                          </span>
+                <div className="flex col-span-2 gap-10">
+                  <CldUploadWidget
+                    uploadPreset="w8tuuc6a"
+                    onSuccess={(result) => setCover(result.info)}
+                  >
+                    {({ open }) => {
+                      return (
+                        <div
+                          className="flex flex-col gap-4 my-4 col-span-2"
+                          onClick={() => open()}
+                        >
+                          <label htmlFor="">Cover Picture</label>
+                          <div className="flex items-center gap-2 cursor-pointer">
+                            <Image
+                              src={user.cover || "/img/noCover.png"}
+                              alt=""
+                              width={48}
+                              height={32}
+                              className="w-12 h-8 rounded-md object-cover"
+                            />
+                            <span className="text-xs underline text-gray-600">
+                              Change
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  }}
-                </CldUploadWidget>
+                      );
+                    }}
+                  </CldUploadWidget>
+                  <CldUploadWidget
+                    uploadPreset="w8tuuc6a"
+                    onSuccess={(result) => setAvatar(result.info)}
+                  >
+                    {({ open }) => {
+                      return (
+                        <div
+                          className="flex flex-col gap-4 my-4 col-span-2"
+                          onClick={() => open()}
+                        >
+                          <label htmlFor="">Avatar Picture</label>
+                          <div className="flex items-center gap-2 cursor-pointer">
+                            <Image
+                              src={user.avatar || "/img/noAvatar.png"}
+                              alt=""
+                              width={20}
+                              height={20}
+                              className="w-8 h-8 rounded-full object-cover"
+                            />
+                            <span className="text-xs underline text-gray-600">
+                              Change
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    }}
+                  </CldUploadWidget>
+                </div>
                 <div className="flex flex-col gap-1 text-gray-600">
                   <label className="text-sm" htmlFor="name">
                     Name

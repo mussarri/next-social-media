@@ -43,8 +43,12 @@ const MakeComment = ({ postId, setCommentList, user }) => {
   return (
     <form action={submit}>
       <div className="flex gap-4">
-        <div className="h-8 w-8 bg-gray-500 rounded-full relative overflow-hidden">
-          <Image fill src={user?.avatar || "/img/noAvatar.png"} />
+        <div className="h-8 w-8 bg-black rounded-full relative overflow-hidden">
+          <Image
+            fill
+            src={user?.avatar || "/img/noAvatar.png"}
+            style={{ objectFit: "contain" }}
+          />
         </div>
         <input
           type="text"

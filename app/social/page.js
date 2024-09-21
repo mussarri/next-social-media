@@ -63,10 +63,15 @@ const page = async () => {
                 className="w-full h-fit rounded shadow overflow-hidden"
               >
                 <div
-                  className="relative w-full "
+                  className="relative w-full bg-black"
                   style={{ aspectRatio: 3 / 3 }}
                 >
-                  <Image src={user.avatar || "/img/noAvatar.img"} fill alt="" />
+                  <Image
+                    src={user.avatar || "/img/noAvatar.img"}
+                    fill
+                    alt=""
+                    style={{ objectFit: "contain" }}
+                  />
                 </div>
                 <div className="px-3 py-1 text-gray-800 text-sm">
                   {" "}

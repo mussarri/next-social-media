@@ -49,8 +49,12 @@ const Post = async ({ post, userId }) => {
           href={"/profile/" + post.user.username}
           className="flex items-center gap-2"
         >
-          <div className="w-8 h-8 bg-gray-500 rounded-full relative overflow-hidden">
-            <Image fill src={post.user.avatar || "/img/noAvatar.png"} />
+          <div className="w-8 h-8 bg-black rounded-full relative overflow-hidden">
+            <Image
+              fill
+              src={post.user.avatar || "/img/noAvatar.png"}
+              style={{ objectFit: "contain" }}
+            />
           </div>
           <div className="capitalize">
             {post.user.name + " " + post.user.surname}
