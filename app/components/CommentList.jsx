@@ -7,19 +7,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { deleteComment } from "../../lib/action";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const CommentList = ({ comments, postId, user }) => {
   const [commentList, setCommentList] = useState(comments);
+  const router = useRouter();
 
   const submitDelete = async (deletedId) => {
     if (!user) return;
-    if (!deletedId) {
-      setCommentList((prev) => prev.slice(1));
-      return;
-    }
     try {
       await deleteComment(deletedId);
       setCommentList((prev) => prev.filter((i) => i.id !== deletedId));
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +32,7 @@ const CommentList = ({ comments, postId, user }) => {
         user={user}
       />
       <div className="pl-2">
-        {commentList.map((i) => {
+        {commentList.slice(0, 2).map((i) => {
           const isLiked = i.likes?.map((item) => item.userId).includes(user.id);
 
           return (

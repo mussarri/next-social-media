@@ -56,7 +56,7 @@ const Post = async ({ post, userId }) => {
             {post.user.name + " " + post.user.surname}
           </div>
         </Link>
-        <PostDelete postId={post.id} />
+        {userId === post.user.id && <PostDelete postId={post.id} />}
       </div>
       {post.img && (
         <div

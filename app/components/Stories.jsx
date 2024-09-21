@@ -1,51 +1,54 @@
 import { auth } from "@clerk/nextjs/server";
-import Image from "next/image";
 import React from "react";
 import prisma from "../../lib/client";
+import StoryList from "./StoryList";
 
 const Stories = async () => {
-  const { userId } = auth();
+  const { userId: currentUserId } = auth();
 
-  const user = await prisma.user.findFirst({
+  let stories = await prisma.story.findMany({
     where: {
-      id: userId,
-    },
-    include: {
-      followers: true,
-    },
-  });
-  const followingIds = user.followings
-    ? user.followings?.map((item) => item.followingId)
-    : [];
-  const ids = followingIds.concat(user.id);
-  const stories = await prisma.story.findMany({
-    where: {
-      userId: { in: ids },
+      expiresAt: {
+        gt: new Date(),
+      },
+      OR: [
+        {
+          user: {
+            followers: {
+              some: {
+                followerId: currentUserId,
+              },
+            },
+          },
+        },
+        {
+          userId: currentUserId,
+        },
+      ],
     },
     include: {
       user: true,
     },
   });
 
+  stories = stories.map((story) => {
+    return {
+      ...story,
+      count: 1,
+    };
+  });
+  stories = stories.sort((a, b) => {
+    return a.user.username > b.user.username;
+  });
+  for (let i = 0; i < stories.length; i++) {
+    const story = stories[i];
+    console.log(stories);
+  }
+
   return (
     <div className="p-4 bg-white rounded-lg shadow overflow-scroll scrollbar-hide">
       <div className="flex w-full gap-5 ">
-        {stories.length > 0 ? (
-          stories.map((item) => (
-            <div className=" flex flex-col">
-              <div className="w-16 h-16 rounded-full bg-gray-500 relative overflow-hidden">
-                <Image
-                  src={item.user.avatar || "/img/noAvatar.png"}
-                  fill
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
-              <span className="text-sm">{item.user.username}</span>
-            </div>
-          ))
-        ) : (
-          <span className="text-xs text-gray-400"> No stories found</span>
-        )}
+        <StoryList stories={stories} userId={currentUserId} />
       </div>
     </div>
   );

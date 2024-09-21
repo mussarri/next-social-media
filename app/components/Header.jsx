@@ -40,7 +40,7 @@ const Header = () => {
               />
               Homepage
             </Link>
-            <Link href={"/"} className="flex items-center gap-2">
+            <Link href={"/social"} className="flex items-center gap-2">
               <FontAwesomeIcon
                 icon={faUsers}
                 width={16}
@@ -75,12 +75,12 @@ const Header = () => {
             />
           </div>
         </div>
-        <div className="w-[30%] flex xl:gap-8 justify-end">
+        <div className="w-[30%] flex justify-end">
           <div className="flex gap-6 items-center">
             <ClerkLoading>...</ClerkLoading>
             <ClerkLoaded>
               <SignedIn>
-                <Link href={"/"}>
+                <Link href={"/social"}>
                   <FontAwesomeIcon
                     icon={faUsers}
                     width={20}

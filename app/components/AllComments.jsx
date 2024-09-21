@@ -7,15 +7,18 @@ import CommentActions from "./CommentActions";
 import Image from "next/image";
 import { deleteComment } from "../../lib/action";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const AllComments = ({ comments, userId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [commentList, setCommentList] = useState(comments);
+  const router = useRouter();
   const submitDelete = async (deletedId) => {
     if (!userId) return;
     try {
       await deleteComment(deletedId);
       setCommentList((prev) => prev.filter((i) => i.id !== deletedId));
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
@@ -25,7 +28,10 @@ const AllComments = ({ comments, userId }) => {
     <>
       <div
         className="text-center text-sm text-gray-400 cursor-pointer"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true);
+          router.refresh();
+        }}
       >
         More comments
       </div>

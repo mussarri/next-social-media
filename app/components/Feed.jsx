@@ -37,23 +37,24 @@ const Feed = async ({ username = "" }) => {
           },
         },
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   } else {
     const user = await prisma.user.findFirst({
-      where: {
-        id: currentUserId,
-      },
       include: {
         followings: true,
+        followers: true,
       },
     });
 
     const followingIds =
-      user?.followings.length > 0
-        ? user?.followings?.map((item) => item.followingId)
+      user?.followers.length > 0
+        ? user?.followers?.map((item) => item.followingId)
         : [];
 
-    const ids = [user.id].concat(followingIds);
+    const ids = [currentUserId, user.id].concat(followingIds);
 
     posts = await prisma.post.findMany({
       where: {

@@ -91,11 +91,7 @@ const UserInfoCard = async ({ username }) => {
         </div>
         <div className="text-xs text-gray-400 mt-1">@{user.username}</div>
       </div>
-      <div className="text-sm text-gray-500 mt-4 w-fit">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-        blanditiis voluptatum tenetur consequatur sunt maxime ipsum, corporis
-        consectetur voluptates quisquam!
-      </div>
+      <div className="text-sm text-gray-500 mt-4 w-fit">{user.description}</div>
       <div className="text-sm text-gray-500 flex flex-col gap-3 mt-4">
         {user.city && (
           <div className="flex gap-2 items-center">

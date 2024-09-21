@@ -4,11 +4,12 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { createComment } from "../../lib/action";
 import MakeCommentButton from "./MakeCommentButton";
+import { useRouter } from "next/navigation";
 
 const MakeComment = ({ postId, setCommentList, user }) => {
   const [text, setText] = useState("");
   const { isLoaded } = useUser();
-
+  const router = useRouter();
   const submit = async (formData) => {
     if (!text || !user) {
       return;
@@ -31,6 +32,7 @@ const MakeComment = ({ postId, setCommentList, user }) => {
         ...prev,
       ]);
       setText("");
+      router.refresh();
     } catch (error) {}
   };
 
