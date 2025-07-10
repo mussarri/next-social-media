@@ -51,7 +51,7 @@ const AddPost = () => {
       <div className="flex gap-4 items-center mt-4 text-gray-4 text-xs pr-5 text-gray-500">
         <div className="flex gap-2">
           <CldUploadWidget
-            uploadPreset="social"
+            uploadPreset="w8tuuc6a"
             onError={(e) => {
               console.log('Image failed to load!')
             }}
