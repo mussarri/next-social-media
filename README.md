@@ -1,7 +1,7 @@
 # 🔗 Modern Social Media Web App
 
 A modern full-stack social media platform built with **Next.js**, **Prisma**, and **MySQL**.  
-Includes features like user authentication, posting, liking, commenting, and real-time updates.
+Includes features like user authentication, posting, liking, commenting.
 
 ---
 
@@ -26,7 +26,6 @@ Includes features like user authentication, posting, liking, commenting, and rea
 ✅ Protected routes (middleware + session-based access)  
 ✅ Server-side data fetching with Prisma  
 ✅ Clean and scalable project structure  
-✅ Ready for WebSocket integration (for live notifications or chat)
 
 ---
 
@@ -43,8 +42,10 @@ Includes features like user authentication, posting, liking, commenting, and rea
 ```bash
 git clone https://github.com/mussarri/next-social-media.git
 cd next-social-media
-
+```
 Create .env
+
+```
 DATABASE_URL
 CLERK_SECRET_KEY
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
@@ -55,7 +56,9 @@ NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 NEXT_PUBLIC_CLOUDINARY_API_KEY
 CLOUDINARY_API_SECRET
 NODE_ENV = production
-
+```
+```
 npm install
 npx prisma migrate dev
 npm run dev
+```
