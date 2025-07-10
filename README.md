@@ -2,6 +2,7 @@
 
 A modern full-stack social media platform built with **Next.js**, **Prisma**, and **MySQL**.  
 Includes features like user authentication, posting, liking, commenting.
+[Link](https://next-social-media-sigma.vercel.app/)
 
 ---
 
