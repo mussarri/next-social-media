@@ -37,6 +37,9 @@ const page = async ({ params }) => {
 
   if (isBlocked) return notFound();
 
+  console.log(user.avatar);
+  
+
   return (
     <div className="max-width py-5 flex gap-4">
       <div className="hidden xl:block w-[20%]">

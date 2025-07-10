@@ -23,6 +23,8 @@ const UpdateUser = ({ user }) => {
     error: false,
   });
 
+  console.log(cover);
+
   return (
     <div>
       <span
@@ -53,7 +55,7 @@ const UpdateUser = ({ user }) => {
                 </div>
               </div>
               <form
-                className="flex flex-col gap-4 mt-3 grid grid-cols-2"
+                className="gap-4 mt-3 grid grid-cols-2"
                 action={(formData) =>
                   formAction({
                     formData,
@@ -76,7 +78,11 @@ const UpdateUser = ({ user }) => {
                           <label htmlFor="">Cover Picture</label>
                           <div className="flex items-center gap-2 cursor-pointer">
                             <Image
-                              src={user.cover || "/img/noCover.png"}
+                              src={
+                                cover?.secure_url ||
+                                user.cover ||
+                                "/img/noCover.png"
+                              }
                               alt=""
                               width={48}
                               height={32}
@@ -103,7 +109,11 @@ const UpdateUser = ({ user }) => {
                           <label htmlFor="">Avatar Picture</label>
                           <div className="flex items-center gap-2 cursor-pointer">
                             <Image
-                              src={user.avatar || "/img/noAvatar.png"}
+                              src={
+                                avatar.secure_url ||
+                                user.avatar ||
+                                "/img/noAvatar.png"
+                              }
                               alt=""
                               width={20}
                               height={20}

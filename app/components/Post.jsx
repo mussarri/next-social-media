@@ -42,8 +42,9 @@ const Post = async ({ post, userId }) => {
     isLiked = false;
   }
 
+
   return (
-    <div className="p-4 mb-4">
+    <div className="p-4 bg-white rounded-lg">
       <div className="flex justify-between items-center">
         <Link
           href={"/profile/" + post.user.username}

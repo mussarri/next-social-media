@@ -16,7 +16,12 @@ const AddPost = () => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow overflow-scroll scrollbar-hide mt-4">
+    <div
+      className={
+        "p-4 bg-white rounded-lg shadow overflow-scroll scrollbar-hide mt-4 gap-4 flex flex-col" +
+        (img ? "-reverse" : "")
+      }
+    >
       <div className="flex gap-4">
         <div className="w-10 h-10 bg-gray-500 rounded-full relative overflow-hidden">
           <Image
@@ -33,9 +38,10 @@ const AddPost = () => {
                 return;
               }
               addPost(formData, img?.secure_url);
+              setImg("");
             }
           }}
-          className="flex-1"
+          className="flex-1  relative"
         >
           <div className="flex gap-4">
             <textarea
@@ -48,45 +54,54 @@ const AddPost = () => {
           </div>
         </form>
       </div>
-      <div className="flex gap-4 items-center mt-4 text-gray-4 text-xs pr-5 text-gray-500">
-        <div className="flex gap-2">
-          <CldUploadWidget
-            uploadPreset="w8tuuc6a"
-            onError={(e) => {
-              console.log('Image failed to load!')
-            }}
-            onSuccess={(result, { widget }) => {
-              setImg(result.info);
-              widget.close();
-            }}
-          >
-            {({ open }) => {
-              function handleOnClick() {
-                setImg(null);
-                open();
-              }
-              return (
-                <div
-                  className="flex items-center gap-2 cursor-pointer"
-                  onClick={() => handleOnClick()}
-                >
-                  <Image src="/img/posts.png" alt="" width={20} height={20} />
-                  Photo
-                </div>
-              );
-            }}
-          </CldUploadWidget>
+      {!img ? (
+        <div className="flex relative gap-4 items-center text-gray-4 text-xs pr-5 text-gray-500">
+          <div className="flex gap-2">
+            <CldUploadWidget
+              uploadPreset="w8tuuc6a"
+              onError={(e) => {
+                console.log("Image failed to load!");
+              }}
+              onSuccess={(result, { widget }) => {
+                setImg(result.info);
+                widget.close();
+              }}
+            >
+              {({ open }) => {
+                function handleOnClick() {
+                  setImg(null);
+                  open();
+                }
+                return (
+                  <div
+                    className="flex items-center gap-2 cursor-pointer"
+                    onClick={() => handleOnClick()}
+                  >
+                    <Image src="/img/posts.png" alt="" width={20} height={20} />
+                    Photo
+                  </div>
+                );
+              }}
+            </CldUploadWidget>
+          </div>
+          <div className="flex gap-2">
+            <Image src={"/img/video.png"} width={14} height={14} /> Video
+          </div>
+          <div className="flex gap-2">
+            <Image src={"/img/list.png"} width={14} height={14} /> Poll
+          </div>
+          <div className="flex gap-2">
+            <Image src={"/img/calendar.png"} width={14} height={14} /> Event
+          </div>
         </div>
-        <div className="flex gap-2">
-          <Image src={"/img/video.png"} width={14} height={14} /> Video
+      ) : (
+        <div
+          className="flex relative gap-4 items-center text-gray-4 text-xs pr-5 text-gray-500 w-full"
+          style={{ aspectRatio: "4/3" }}
+        >
+          <Image src={img.secure_url || "/img/noCover.png"} fill />
         </div>
-        <div className="flex gap-2">
-          <Image src={"/img/list.png"} width={14} height={14} /> Poll
-        </div>
-        <div className="flex gap-2">
-          <Image src={"/img/calendar.png"} width={14} height={14} /> Event
-        </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -6,12 +6,15 @@ import {
   faAngleLeft,
   faAngleRight,
   faClose,
+  faTrash,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { deleteStory } from "../../lib/action";
+import StoryDelete from "./StoryDeleteButton";
 
-const StoryModal = ({ close, story, setActive }) => {
+const StoryModal = ({ close, story, setActive, setStoryList }) => {
   const ref = useRef(null);
   useEffect(() => {
     function handleClickOutside(event) {
@@ -82,8 +85,20 @@ const StoryModal = ({ close, story, setActive }) => {
               <div className="text-xs text-gray-400">{msToTime(a - b)}</div>
             </div>
           </Link>
-          <div onClick={close} className="text-white cursor-pointer">
-            <FontAwesomeIcon icon={faXmark} />
+          <div className="text-white cursor-pointer flex">
+            <form
+              action={() => {
+                deleteStory();
+
+                setStoryList((prev) => prev.filter((i) => i.id !== story.id));
+                close();
+              }}
+            >
+              <StoryDelete />
+            </form>
+            <span onClick={close}>
+              <FontAwesomeIcon icon={faXmark} />
+            </span>
           </div>
         </div>
         <Image alt="" src={story.img} fill style={{ objectFit: "contain" }} />

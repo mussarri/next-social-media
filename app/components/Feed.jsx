@@ -88,7 +88,7 @@ const Feed = async ({ username = "" }) => {
   }
 
   return (
-    <div className="flex flex-col bg-white mt-6 gap-4 rounded-lg">
+    <div className="flex flex-col mt-6 gap-4 rounded-lg">
       <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
         {posts.map((post) => (
           <Post post={post} userId={currentUserId} />

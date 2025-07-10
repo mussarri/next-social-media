@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import React from "react";
+import React, { Suspense } from "react";
 import prisma from "../../lib/client";
 import StoryList from "./StoryList";
 
@@ -48,7 +48,9 @@ const Stories = async () => {
   return (
     <div className="p-4 bg-white rounded-lg shadow overflow-scroll scrollbar-hide">
       <div className="flex w-full gap-5 ">
-        <StoryList stories={stories} userId={currentUserId} />
+        <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+          <StoryList stories={stories} userId={currentUserId} />
+        </Suspense>
       </div>
     </div>
   );

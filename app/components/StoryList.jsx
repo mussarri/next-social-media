@@ -15,41 +15,11 @@ const StoryList = ({ stories, userId }) => {
   const { user, isLoaded } = useUser();
 
   const add = async () => {
-    if (!img?.secure_url) return;
-
-    addOptimisticStory({
-      id: Math.random(),
-      img: img.secure_url,
-      createdAt: new Date(Date.now()),
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
-      userId: userId,
-      user: {
-        id: userId,
-        username: "Sending...",
-        avatar: user?.imageUrl || "/img/noAvatar.png",
-        cover: "",
-        description: "",
-        name: "",
-        surname: "",
-        city: "",
-        work: "",
-        school: "",
-        website: "",
-        createdAt: new Date(Date.now()),
-      },
-    });
-
     try {
       const createdStory = await addStory(img.secure_url);
-      setStoryList((prev) => [createdStory, ...prev]);
       setImg(null);
     } catch (err) {}
   };
-
-  const [optimisticStories, addOptimisticStory] = useOptimistic(
-    storyList,
-    (state, value) => [value, ...state]
-  );
 
   return (
     <>
@@ -58,12 +28,14 @@ const StoryList = ({ stories, userId }) => {
           close={() => setIsOpen(false)}
           story={stories[active]}
           setActive={setActive}
+          setStoryList={setStoryList}
         />
       )}
       <CldUploadWidget
         uploadPreset="w8tuuc6a"
         onSuccess={(result, { widget }) => {
           setImg(result.info);
+
           widget.close();
         }}
       >
@@ -71,10 +43,14 @@ const StoryList = ({ stories, userId }) => {
           return (
             <div className="flex flex-col items-center gap-2 cursor-pointer relative">
               <div
-                className="w-12 h-12 flex items-center justify-center rounded-full border text-3xl text-gray-400"
+                className="w-12 h-12 flex items-center justify-center rounded-full border text-3xl text-gray-400 overflow-hidden relative"
                 onClick={open}
               >
-                <span className="text-3xl mb-1">+</span>
+                {img ? (
+                  <Image src={img.secure_url} fill />
+                ) : (
+                  <span className="text-3xl mb-1">+</span>
+                )}
               </div>
               {img ? (
                 <form action={add}>
@@ -89,7 +65,7 @@ const StoryList = ({ stories, userId }) => {
           );
         }}
       </CldUploadWidget>
-      {optimisticStories.map((story, index) => (
+      {storyList.map((story, index) => (
         <div
           className="flex flex-col items-center gap-2 cursor-pointer"
           key={story?.id}
@@ -99,6 +75,7 @@ const StoryList = ({ stories, userId }) => {
               fill
               style={{ objectFit: "contain" }}
               src={story?.user.avatar || "/img/noAvatar.png"}
+              alt=""
               onClick={() => {
                 setIsOpen(true), setActive(index);
               }}
