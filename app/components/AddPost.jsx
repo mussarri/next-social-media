@@ -51,17 +51,24 @@ const AddPost = () => {
       <div className="flex gap-4 items-center mt-4 text-gray-4 text-xs pr-5 text-gray-500">
         <div className="flex gap-2">
           <CldUploadWidget
-            uploadPreset="w8tuuc6a"
+            uploadPreset="social"
+            onError={(e) => {
+              console.log('Image failed to load!')
+            }}
             onSuccess={(result, { widget }) => {
               setImg(result.info);
               widget.close();
             }}
           >
             {({ open }) => {
+              function handleOnClick() {
+                setResource(undefined);
+                open();
+              }
               return (
                 <div
                   className="flex items-center gap-2 cursor-pointer"
-                  onClick={() => open()}
+                  onClick={() => handleOnClick()}
                 >
                   <Image src="/img/posts.png" alt="" width={20} height={20} />
                   Photo
