@@ -32,9 +32,9 @@ Includes features like user authentication, posting, liking, commenting, and rea
 
 ## 📷 Screenshots
 
-![Alt text](/social-media.png)
-![Alt text](/social-media.png)
-![Alt text](/social-media.png)
+![Alt text](/social-media1.png)
+![Alt text](/social-media2.png)
+![Alt text](/social-media3.png)
 
 ---
 
