@@ -62,7 +62,7 @@ const AddPost = () => {
           >
             {({ open }) => {
               function handleOnClick() {
-                setResource(undefined);
+                setImg(null);
                 open();
               }
               return (
