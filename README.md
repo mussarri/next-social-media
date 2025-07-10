@@ -32,7 +32,6 @@ Includes features like user authentication, posting, liking, commenting, and rea
 
 ## 📷 Screenshots
 
-> *Add 2–3 screenshots here if possible (home feed, post page, user profile)*
 ![Alt text](/social-media.png)
 ![Alt text](/social-media.png)
 ![Alt text](/social-media.png)
@@ -45,7 +44,7 @@ Includes features like user authentication, posting, liking, commenting, and rea
 git clone https://github.com/mussarri/next-social-media.git
 cd next-social-media
 
-# PostgreSQL bağlantı adresi
+Create .env
 DATABASE_URL
 CLERK_SECRET_KEY
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
@@ -60,6 +59,3 @@ NODE_ENV = production
 npm install
 npx prisma migrate dev
 npm run dev
-
-
-![Alt text](/social-media.png)
